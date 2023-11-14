@@ -3,6 +3,8 @@
 \usepackage{cite}
 %\usepackage[latin1]{inputenc}
 \usepackage[english]{babel}
+\usepackage{booktabs} % For improved table formatting
+\usepackage{array} % For improved column formatting
 
 \begin{document}
 
@@ -25,12 +27,15 @@ Lightweight Cryptography (LWC) is an expanding field of research as a result of 
 Back in 2016, World Economic Forum founder and executive chairman Klaus Schwab wrote a book titled The Fourth Industrial Revolution, in which he explained that the way we live, work and relate to one another was about to be fundamentally altered by a digital revolution unlike the ones humanity had experienced before. Back to today, this so-called fourth industrial revolution has been characterized by a fusion of technologies that is blurring the lines between the physical, digital, and biological spheres\cite{WorldEconomicForum}.
 The Internet of Things (IoT) paradigm corresponds to the inter-device domain created by devices embedded with electronics, software, sensors, and connectivity, enabling the transmission, receiving, and processing of data through various communication infrastructures. IoT generates more opportunities for direct integration between the physical world and computer-based systems.
 As of 2019, IoT, which used to operate in smaller network spaces, has expanded to wide area networks, thereby increasing associated risks due to the expected surge in IoT devices in diverse environments. With the rapid growth of IoT applications, a substantial amount of sensitive data is generated and exchanged, leading to the observation of several security and privacy issues. As devices become more interconnected, security and privacy concerns will become more pronounced, continuously exposing additional security flaws and weaknesses. In statistical terms, all exposed errors and weaknesses may be exploited in an environment with billions of devices.
+
 IoT devices can be categorized into two groups based on their resources. The first group includes devices abundant in resources like servers, personal computers, tablets, smartphones, etc. The second group comprises devices limited in resources, such as industrial sensors or sensor nodes, RFID tags, actuators, etc.
 This last group of devices face multiple constraints, including limitations in resources, memory, power/energy consumption, and speed. The challenge in terms of performance arises when attempting to implement traditional cryptography in devices with limited resources. This difficulty is attributed to the intricate and resource-intensive mathematical operations involved in traditional cryptographic techniques. Such operations require substantial memory space and demand high processing power. Moreover, the implementation cost of traditional cryptography in low-resource devices is notably high. Consequently, lightweight cryptography was introduced to address these issues. Lightweight cryptography, born out of the remarkable expansion in emerging ubiquitous technologies, represents a modern cryptographic technique.
+
 Ciphers are categorized as either asymmetric or symmetric. While asymmetric ciphers provide enhanced security features, they require more computational power and tend to be relatively more costly. It is for this reason that asymmetric ciphers are not popular in the context of resource-constrained devices. Block ciphers and stream ciphers are the two main classifications of symmetric ciphers. This work will focus on block ciphers because most of the research in the LWC field centers around this paradigm.
 Several lightweight block ciphers have been suggested to gain performance advantages compared to traditional cryptographic methods. Certain ciphers achieved this by simplifying well-established block ciphers, enhancing their efficiency. Notable examples include AES-128\cite{AES-128}, a variant of NIST's Advanced Encryption Standard (AES), and DESL\cite{DESL}, which is a modified version of DES. In DESL, the round function and permutations were reduced to enhance hardware implementation efficiency.
 On the other hand, some algorithms are dedicated block ciphers crafted from the ground up. An early example is PRESENT\cite{PRESENT}, specifically designed for resource-constrained hardware environments. Additionally, there are families of lightweight block ciphers such as SIMON and SPECK\cite{SIMONSPECK}. These were created to be uncomplicated, adaptable, and to deliver optimal performance in both hardware and software implementations.
 The advantages in performance seen in lightweight block ciphers compared to traditional block ciphers result from design decisions that prioritize smaller block sizes, reduced key sizes, simpler rounds, more straightforward key schedules, and minimal implementations. These characteristics will be discussed in detail in the upcoming sections.
+
 The rest of the paper is organized as follows: Section 2 delves into the theorical framework of lightweight block ciphers. This section aims to establish a solid foundation by discussing background information on lightweight ciphers and their significance in ensuring security in low-resource devices. Theorical concepts and principles underlying these ciphers will be thoroughly examined. Section 3 presents a survey of related work in the realm of lightweight block ciphers. This includes a comprehensive review of existing literature, comparing and contrasting various approaches. Section 4 introduces our taxonomy of the cipher implementation space. This taxonomy serves as a structured framework for categorizing and understanding different aspects of lightweight block ciphers. It explores variations, modes of operation, and algorithmic choices, providing a roadmap for researchers and practitioners to navigate this complex landscape. In Section 5, we conduct an in-depth analysis of the strengths and weaknesses inherent in lightweight block ciphers. This assessment encompasses scenarios where these ciphers excel in terms of security and performance, as well as potential vulnerabilities or trade-offs that should be considered in their application. Finally, in Section 6, the paper is concluded with a summary of key findings and overarching conclusions. This section encapsulates the contributions of our work, discusses the implications of our taxonomy, and provides closing remarks on the significance of lightweight block ciphers in contemporary cryptographic applications.
 
 \section{Theorical framework}
@@ -40,21 +45,57 @@ The rest of the paper is organized as follows: Section 2 delves into the theoric
 \subsubsection{Lightweight Message Authentication Codes} 
 \subsubsection{Lightweight Stream Ciphers} 
 \subsection{Target Devices}
+Lightweight cryptography is designed to cater to a diverse range of devices and can be applied across a wide array of hardware and software configurations (See Table \ref{table:crypto_devices}). At the upper echelon of this device spectrum are servers and desktop computers, succeeded by tablets and smartphones. Traditional cryptographic algorithms typically exhibit satisfactory performance on these higher-end devices, making lightweight algorithms unnecessary for these platforms. However, at the lower end of the spectrum, we encounter devices like embedded systems, RFID devices, and sensor networks. It is in these highly constrained environments that lightweight cryptography takes center stage, addressing the specific needs of devices in this category.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Device} & \textbf{Cryptography} \\
+        \midrule
+        Servers, Desktops, Tablets, and Smartphones & Conventional Cryptography \\
+        Embedded Systems and RFID & Lightweight Cryptography \\
+        \bottomrule
+    \end{tabular}
+    \caption{Cryptographic Approaches on Different Devices}
+    \label{table:crypto_devices}
+\end{table}
+
+While lightweight cryptography is primarily designed for devices at the lower end of the device spectrum, it's crucial to acknowledge the potential necessity of implementing lightweight algorithms at the higher end of the spectrum as well. For instance, even though many resource-constrained sensors may transmit data to an aggregator that, by most standards, is not constrained, the aggregator must still accommodate lightweight algorithms to interact effectively with the constrained sensors utilizing lightweight cryptographic methods. In essence, the decision on whether conventional standards are acceptable should consider the specific environment and application. The demand for lightweight cryptography arises not only from the limitations of a particular device but also from the need to ensure compatibility with other devices directly interacting within the application.
 \subsection{Applications and Architectures}
 IoT systems offer a wide range of services, including Intelligent Transportation Systems (ITS), smart grids, smart buildings, smart cities, e-Health, intelligent drug delivery systems, and more. Even Cyber-Physical Systems (CPS), such as Nuclear Power Plants (NPP), are encompassed within the IoT framework. The majority of these services are of a critical nature. Each IoT system is tailored to deliver a specific service, and for each application, diverse architectures are in development. 
 Nevertheless, the shared drawbacks among many proposed architectures prevent them from fully meeting all IoT requirements. The applications can be classified into various domains, including Medical, Military, Industrial, Automobile, Environmental, Agriculture, Retail, and Consumer. Each domain offers its unique advantages while simultaneously tackling the IoT-related challenges discussed earlier.
 \subsection{Performance Metrics} 
+In the domain of designing cryptographic algorithms, there is a delicate equilibrium between the attained performance and the resources necessary to uphold a particular security level. Factors influencing performance include power and energy consumption, latency, and throughput.
+Power and energy consumption are crucial metrics for constrained devices. Devices relying on harvested power, such as RFID chips utilizing electromagnetic fields, emphasize the significance of power considerations. In battery-operated devices with fixed energy stores, the concept of energy consumption gains prominence, especially when batteries are challenging or impossible to recharge or replace post-deployment.
+Latency assumes special significance in specific real-time applications, being defined as the time gap between initiating an operation and generating its output. For example, in the realm of encryption, latency represents the interval from the initial request to encrypt plaintext to the reception of the corresponding ciphertext in the response.
+Throughput pertains to the pace at which new outputs, such as authentication tags or ciphertext, are created. Unlike conventional algorithms, prioritizing high throughput may not be the main focus in lightweight designs. Nevertheless, a moderate level of throughput remains essential for most applications.
+
+In hardware implementations, resource needs are commonly measured in terms of gate area, gate equivalents, or logic blocks. In software environments, these considerations are reflected in the utilization of registers, RAM, and ROM. These resource requirements are frequently labeled as costs, as increasing the number of gates or memory tends to raise the overall production cost of a device.
 \subsubsection{Hardware-Specific Metrics} 
+Resource needs for hardware platforms are commonly expressed in terms of gate area, measured in \(\mu \text{m}^2\). This area can be specified in logic blocks for field-programmable gate arrays (FPGAs) or in gate equivalents (GEs) for application-specific integrated circuit (ASIC) implementations.
+In the realm of FPGAs, a logic block serves as the fundamental reconfigurable unit, housing various components like look-up tables (LUTs), flip-flops, and multiplexers.
+For ASICs, one GE corresponds to the area required by a two-input NAND gate. The GE count is determined by dividing the area in \(\mu \text{m}^2\) by the area of the NAND gate.
 \subsubsection{Software-Specific Metrics} 
+In software applications, the assessment of resource needs involves considering the number of registers, RAM, and ROM bytes required. Functions with fewer registers experience lower calling overhead. ROM stores program code and fixed data, while RAM holds intermediate values for computations. This presents trade-offs between on-demand value calculation and referencing precomputed values.
 \subsection{Security Analysis Techniques}
+Cryptographic algorithms undergo diverse tests to confirm their efficiency. Within this study, we will provide a broad overview of the five most widely used cryptanalysis techniques.
 \subsubsection{Linear Cryptanalysis} 
+This attack is also referred to as a plaintext attack, and it is considered a basic attack. It relies on the occurrence of high probability linear expressions where plaintext bits, ciphertext bits, and subkeys are accountable.
 \subsubsection{Differential Cryptanalysis} 
+In this attack, the identification of trails is achieved through the utilization of a difference distribution table (DDT). The construction of the DDT is facilitated by high-probability input and output differences.
 \subsubsection{Zero Correlation Attack} 
+In the zero correlation attack, we modify a single input bit and determine the corresponding ciphertext according to predefined rules.
 \subsubsection{Biclique Attack} 
+This attack is a theoretical approach that determines the data complexity and computational complexity of the cipher. The Biclique attack is an extension of the meet-in-the-middle attack (MITM).
 \subsubsection{Avalanche Effect Attack} 
+The avalanche effect demonstrates the randomization nature of the cipher and its robust cryptanalytic properties, ensuring that under any circumstances, predicting the input plaintext is not feasible.
 \subsection{Classification of Attacks}
+Attacks on IoT are divided into two modules.
 \subsubsection{Protocol-Based Attacks} 
+These types of attacks exploit the internal protocol-based structure of IoT components, impacting the communication medium and the forwarding channels of embedded systems.
 \subsubsection{Data-Based Attacks} 
+Data-based attacks encompass threats related to the original data packets and messages traversing through node sites. Security vulnerabilities such as hash collisions, denial-of-service (DoS) attacks, malicious node virtual machine creation, and data exposure are among the most impactful exploits in this category.
 
 \section{Related Work}
 
