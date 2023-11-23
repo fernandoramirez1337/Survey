@@ -5,6 +5,10 @@
 \usepackage[english]{babel}
 \usepackage{booktabs} % For improved table formatting
 \usepackage{array} % For improved column formatting
+\usepackage{multicol} % For multi-column formatting
+\usepackage{lipsum}
+
+
 
 \begin{document}
 
@@ -107,14 +111,58 @@ These types of attacks exploit the internal protocol-based structure of IoT comp
 \subsubsection{Data-Based Attacks} 
 Data-based attacks encompass threats related to the original data packets and messages traversing through node sites. Security vulnerabilities such as hash collisions, denial-of-service (DoS) attacks, malicious node virtual machine creation, and data exposure are among the most impactful exploits in this category.
 
-\section{Related Work}
-
 \section{Taxonomy}
-
+\lipsum[1-5]
+\begin{table*}[ht]
+    \centering
+    \caption{Lightweight Block Ciphers}
+    \begin{tabular}{||l l l l l||} 
+     \hline
+     Algorithm & Key size & Block size & Structure & N. of rounds \\ 
+     \hline\hline
+     AES (1998)\cite{AES-128} & 128/192/256 & 128 & SPN & 10/12/14 \\ 
+     \hline
+     Hummingbird (2009)\cite{HUMMINGBIRD} & 256 & 16 & SPN & 4 \\
+     \hline
+     Hummingbird2 (2012)\cite{HUMMINGBIRD2} & 256 & 16 & SPN & 4 \\
+     \hline
+     Present (2007)\cite{PRESENT} & 80/128 & 64 & SPN & 31 \\
+     \hline
+     Prince (2012)\cite{PRINCE} & 128 & 64 & SPN & 31 \\
+     \hline
+     Led (2011)\cite{LED} & 64/128 & 64 & SPN & 32/48 \\
+     \hline
+     DULBC (2022) \cite{DULBC} & 64/128 & 64 & SPN & 25/30 \\
+     \hline
+     GIFT (2017)\cite{GIFT} & 128 & 64/128 & SPN & 28/40 \\
+     \hline
+     mCrypton (2005)\cite{MCRYPTON} & 64/96/128 & 64 & SPN & 12 \\
+     \hline
+     TWINE (2012)\cite{TWINE} & 80-128 & 64 & Feistel & 32 \\
+     \hline
+     DESL (2007)\cite{DESL} & 54 & 64 & Feistel & 16 \\
+     \hline
+     GOST (2012)\cite{GOST} & 256 & 64 & Feistel & 32 \\
+     \hline
+     HIGHT (2006)\cite{HIGHT} & 128 & 64 & Feistel & 32 \\
+     \hline
+     Lblock (2011)\cite{LBLOCK} & 80 & 64 & Feistel & 32 \\
+     \hline
+     SLIM (2020)\cite{SLIM} & 80 & 32 & Feistel & 32 \\
+     \hline
+     SHADOW (2021)\cite{SHADOW} & 64/128 & 32/64 & Feistel & 16/32 \\
+     \hline
+     SKINNY (2016)\cite{SKINNY} & 64/128 & 64/128 & Feistel & 32/40 \\
+     \hline
+     QTL (2016)\cite{QTL} & 64/128 & 64 & Feistel & 16/20 \\
+     \hline
+    \end{tabular}
+\end{table*}
+\lipsum[1-5]
 \section{Strengths and Weaknesses}
-
+\lipsum[1-5]
 \section{Conclusions}
-
+\lipsum[1-5]
 \bibliographystyle{IEEEtran}
 \bibliography{../bibliography/references}
 \end{document}
