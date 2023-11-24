@@ -61,17 +61,17 @@ Two lines of action have been employed to offer lightweight cryptographic primit
 \subsection{Target Devices}
 Lightweight cryptography is designed to cater to a diverse range of devices and can be applied across a wide array of hardware and software configurations (See Table \ref{table:crypto_devices}). At the upper echelon of this device spectrum are servers and desktop computers, succeeded by tablets and smartphones. Traditional cryptographic algorithms typically exhibit satisfactory performance on these higher-end devices, making lightweight algorithms unnecessary for these platforms. However, at the lower end of the spectrum, we encounter devices like embedded systems, RFID devices, and sensor networks. It is in these highly constrained environments that lightweight cryptography takes center stage, addressing the specific needs of devices in this category.
 
-\begin{table}[h]
+\begin{table}[ht]
     \centering
-    \begin{tabular}{lc}
+    \caption{Cryptographic Approaches on Different Devices}
+    \begin{tabular}{ll}
         \toprule
         \textbf{Device} & \textbf{Cryptography} \\
         \midrule
-        Servers, Desktops, Tablets, and Smartphones & Conventional Cryptography \\
+        Servers, Desktops and Smartphones & Conventional Cryptography \\
         Embedded Systems and RFID & Lightweight Cryptography \\
         \bottomrule
     \end{tabular}
-    \caption{Cryptographic Approaches on Different Devices}
     \label{table:crypto_devices}
 \end{table}
 
